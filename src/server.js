@@ -30,6 +30,23 @@ TPLSmartDevice
     }
   })
 
+// every second update info about known bulbs
+setInterval(() => {
+  Promise.all(
+    Object.keys(devices)
+    .map(deviceId => {
+      const light = new TPLSmartDevice(devices[deviceId].ip)
+      return light.info()
+    })
+  )
+  .then(infos => {
+    infos.forEach(info => {
+      devices[info.deviceId]._sysinfo = info
+    })
+    io.emit('action', {type: 'set', payload: {devices}})
+  })
+}, 1000)
+
 io.on('connection', socket => {
   socket.emit('action', {type: 'set', payload: {devices}})
 
