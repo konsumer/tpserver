@@ -2,6 +2,8 @@
 
 Web interface for tplink smart devices
 
+![screenshot](screenshot.png)
+
 ## setup
 
 ```
