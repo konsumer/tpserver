@@ -69,6 +69,6 @@ export const DeviceList = ({handleClick, devices}) => (
 
 export default connect(state => state, dispatch => ({
   handleClick: device => power => {
-    dispatch({type: 'server/lightToggle', payload: {power, device}})
+    dispatch({type: 'server/toggle', payload: {power, device}})
   }
 }))(DeviceList)

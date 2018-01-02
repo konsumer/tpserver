@@ -30,7 +30,7 @@ TPLSmartDevice
     }
   })
 
-// every second update info about known bulbs
+// every half-second update info about known bulbs
 setInterval(() => {
   Promise.all(
     Object.keys(devices)
@@ -51,19 +51,14 @@ io.on('connection', socket => {
   socket.emit('action', {type: 'set', payload: {devices}})
 
   socket.on('action', ({type, payload}) => {
+    const light = new TPLSmartDevice(payload.device.ip)
     switch (type) {
-      case 'server/lightToggle':
-        const light = new TPLSmartDevice(payload.device.ip)
+      case 'server/toggle':
         light.power(payload.power)
-          .then(status => {
-            if (typeof status.on_off !== 'undefined') {
-              devices[payload.device.deviceId]._sysinfo.light_state.on_off = status.on_off
-            }
-            if (status.system && typeof status.system.set_relay_state !== 'undefined') {
-              devices[payload.device.deviceId]._sysinfo.relay_state = payload.power
-            }
-            io.emit('action', {type: 'set', payload: {devices}})
-          })
+        break
+      case 'server/color':
+        const {hue, saturation, brightness} = payload.color
+        light.power(true, 0, {color_temp: 0, hue, saturation, brightness})
         break
       default:
         console.log('Unknown action:', type)
