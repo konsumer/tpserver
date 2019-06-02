@@ -32,32 +32,26 @@ const Device = ({ device, onClick }) => {
   const description = device._sysinfo.description ? device._sysinfo.description : device._sysinfo.dev_name
   let power = device._sysinfo.relay_state
   let color
-  if (typeof device._sysinfo.light_state !== 'undefined') {
-    power = device._sysinfo.light_state.on_off
-    const { hue, saturation, brightness, color_temp } = device._sysinfo.light_state.dft_on_state || device._sysinfo.light_state
-    if (color_temp !== 0) {
-      const c = colorTemperatureToRGB(color_temp)
-      color = `rgb(${Math.floor(c.r)}, ${Math.floor(c.g)}, ${Math.floor(c.b)})`
-    } else {
-      color = `hsl(${hue}, ${saturation}%, 50%)`
-    }
-  }
+
+  // TODO: color-state changed, need to figure it out here
   return (
-    <ListGroupItem className='Device' style={{}}>
-      <VBox flex={1}>
-        <Box><ListGroupItemHeading>{device.name}</ListGroupItemHeading></Box>
-        <Box><ListGroupItemText>{description}</ListGroupItemText></Box>
-      </VBox>
-      {color && <Lightbulb color={color} />}
-      <Box>
-        <PowerButton power={power} onClick={onClick} />
+    <ListGroupItem className='Device'>
+      <Box flex={1}>
+        <VBox flex={1}>
+          <Box><ListGroupItemHeading>{device.name}</ListGroupItemHeading></Box>
+          <Box><ListGroupItemText>{description}</ListGroupItemText></Box>
+        </VBox>
+        {color && <Lightbulb color={color} />}
+        <Box>
+          <PowerButton power={power} onClick={onClick} />
+        </Box>
       </Box>
     </ListGroupItem>
   )
 }
 
 export const DeviceList = ({ handleClick, devices }) => (
-  <Container className='DeviceList'>
+  <Container className='DeviceList' style={{ marginTop: 20 }}>
     <ListGroup>
       {Object.keys(devices)
         .map(deviceId => (
