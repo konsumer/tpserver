@@ -7,13 +7,14 @@
     "build": "parcel build src/index.html"
   },
   "dependencies": {
-    "@babel/node": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
+    "@babel/core": "latest",
+    "@babel/node": "latest",
+    "@babel/preset-env": "latest",
     "node-sass": "latest",
-    "parcel": "^1.12.3",
+    "parcel": "latest",
     "bootstrap": "latest",
     "express": "latest",
-    "parcel-bundler": "^1.12.3",
+    "parcel-bundler": "latest",
     "react": "latest",
     "react-color": "latest",
     "react-dom": "latest",
@@ -31,8 +32,5 @@
     "presets": [
       "@babel/preset-env"
     ]
-  },
-  "devDependencies": {
-    "@babel/core": "^7.4.5"
   }
 }
