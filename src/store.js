@@ -4,10 +4,10 @@ import createSocketIoMiddleware from 'redux-socket.io'
 
 export const socket = openSocket()
 
-export const reducer = (state = {devices: {}, tick: 0}, action) => {
+export const reducer = (state = { devices: {}, tick: 0 }, action) => {
   switch (action.type) {
     case 'set':
-      return {...state, ...action.payload}
+      return { ...state, ...action.payload }
     default:
       return state
   }

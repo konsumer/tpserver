@@ -13,4 +13,4 @@ ReactDOM.render(
       <Route path='/' exact component={DeviceList} />
     </Router>
   </Provider>
-, document.getElementById('root'))
+  , document.getElementById('root'))
